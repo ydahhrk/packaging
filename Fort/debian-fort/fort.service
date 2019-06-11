@@ -1,0 +1,31 @@
+# This is a systemd unit configuration file.
+# As of now, it is the only file needed to connect Fort and systemd.
+# Turns Fort into a service.
+
+[Unit]
+Description=Fort RPKI Validator/Server
+Documentation=https://nicmx.github.io/FORT-validator/doc/index.html
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/fort --configuration-file /etc/fort/config.json
+# This user is created during postinst.
+User=fort-validator
+# -- Security Section --
+# It's not clear to me if I should add more entries here. It's strange that it
+# seems to operate as a black list.
+# (I mean, I get it that defaulting all of these to "yes" would break all
+# existing software, but not giving a whitelist option for new software is
+# weird.)
+# AFAIK (ie. leaving libcrypto out), Fort needs (by default)
+# - read and write permissions on /tmp/fort (the cached repository)
+# - read permissions on /etc/fort (the configuration)
+# - the ability to create a public server socket (the RTR server)
+# Nothing else.
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=full
+ProtectHome=yes
+
+[Install]
+WantedBy=multi-user.target

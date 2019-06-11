@@ -1,0 +1,5 @@
+debian/config/config.json /etc/fort
+tal/afrinic.tal           /etc/fort/tal
+tal/apnic.tal             /etc/fort/tal
+tal/lacnic.tal            /etc/fort/tal
+tal/ripe.tal              /etc/fort/tal

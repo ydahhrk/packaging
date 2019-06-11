@@ -137,6 +137,7 @@ make dist
 
 # Prepare debian workspace
 cd "$WORKING_DIR"
+rm -rf $PROJECT-$VERSION/
 mv "$GIT_REPOSITORY"/$PROJECT-$VERSION.tar.gz .
 tar xvfz $PROJECT-$VERSION.tar.gz
 cd $PROJECT-$VERSION/
