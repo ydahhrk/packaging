@@ -1,5 +1,12 @@
+fort (0.0.2-1) UNRELEASED; urgency=medium
+
+  * libcmscodec dependency removed
+  * Lintian bugs purged
+
+ -- Alberto Leiva Popper <ydahhrk@gmail.com>  Fri, 14 Jun 2019 17:54:20 -0500
+
 fort (0.0.1-1) UNRELEASED; urgency=medium
 
-  * Initial release (Closes: #nnnn) TODO ITP bug number
+  * Initial release
 
  -- Alberto Leiva Popper <ydahhrk@gmail.com>  Wed, 05 Jun 2019 17:01:16 -0500
