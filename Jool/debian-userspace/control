@@ -1,0 +1,26 @@
+Source: jool
+Maintainer: Jool Team <jool@nic.mx>
+Uploaders: Alberto Leiva Popper <ydahhrk@gmail.com>
+Section: net
+Priority: optional
+# TODO missing iptables et al
+Build-Depends: debhelper (>= 11),
+	pkg-config,
+	libnl-genl-3-dev (>= 3.1)
+Standards-Version: 4.1.4
+Homepage: https://jool.mx
+Vcs-Browser: https://github.com/NICMx/Jool
+Vcs-Git: https://github.com/NICMx/Jool.git
+
+Package: jool-utils
+Architecture: any
+Depends: ${shlibs:Depends},
+	${misc:Depends}
+Recommends: jool-dkms
+Description: Userspace tools for the Jool kernel modules
+ Jool is an IP/ICMP translator; a NAT-like kernel-based utility that converts
+ IPv4 traffic into IPv6 and vice versa, according to a configurable IP address
+ translation strategy.
+ .
+ This package contains the userspace tools. The kernel modules can be found in
+ the jool-dkms package.

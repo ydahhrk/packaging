@@ -1,0 +1,41 @@
+#!/usr/bin/make -f
+
+# See debhelper(7)
+# output every command that modifies files on the build system.
+export DH_VERBOSE = 1
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# see ENVIRONMENT in dpkg-buildflags(1)
+# package maintainers to append CFLAGS
+export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# package maintainers to append LDFLAGS
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+%:
+	# Because my research was relatively fruitless, I mostly learned to
+	# package kernel modules by analyzing the ndiswrapper Debian package.
+	# It took me a while to figure out the --sourcedirectory flag.
+	# Here's its rationale, as I understand it:
+	#
+	# DKMS packages install kernel modules. Because a compiled module is
+	# only usable on precisely one kernel version, and kernels update
+	# consistently, the package is not supposed to install module binaries;
+	# rather, they are supposed to install their source code. Whenever the
+	# kernel is updated, DKMS uses this installed source to automatically
+	# recompile the modules.
+	#
+	# Of all of that, the only thing --with=dkms appears NOT to do is to
+	# prevent the code from being compiled during the packaging step.
+	# That is (apparently) why we need --sourcedirectory.
+	#
+	# We set --sourcedirectory as some arbitrary directory that lacks a
+	# Makefile. Because it doesn't, the dh_auto_* commands (such as
+	# dh_auto_build) become no-ops. As a result, the package only contains
+	# the module source code and no binaries.
+	dh $@ --with=dkms --sourcedirectory=src
+
+override_dh_dkms:
+	# -V enables us to use #MODULE_VERSION# in the jool-dkms.dkms file.
+	dh_dkms -V

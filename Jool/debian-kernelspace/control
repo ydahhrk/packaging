@@ -1,0 +1,31 @@
+Source: jool
+Maintainer: Jool Team <jool@nic.mx>
+Uploaders: Alberto Leiva Popper <ydahhrk@gmail.com>
+Section: kernel
+Priority: optional
+Build-Depends: debhelper (>= 11),
+	dkms
+Standards-Version: 4.1.4
+Homepage: https://jool.mx
+Vcs-Browser: https://github.com/NICMx/Jool
+Vcs-Git: https://github.com/NICMx/Jool.git
+
+Package: jool-dkms
+Architecture: all
+Depends: ${misc:Depends}
+Description: Kernel-based SIIT and NAT64 (IP/ICMP translation)
+ Jool is an IP/ICMP translator; a NAT-like kernel-based utility that converts
+ IPv4 traffic into IPv6 and vice versa, according to a configurable IP address
+ translation strategy.
+ .
+ The `jool_siit` module implements SIIT (sometimes known as "Stateless NAT64"),
+ a lightweight translator that avoids storing state by keeping a deterministic
+ 1-to-1 relationship between IPv4 addresses and their IPv6 counterparts. It can
+ translate addresses using the "traditional prefix" algorithm defined in RFC
+ 6052, and/or the Explicit Address Mapping algorithm defined in RFC 7757.
+ .
+ The `jool` module implements Stateful NAT64, a translator that can achieve 1
+ (IPv4)-to-N (IPv6) relationships through a mapping strategy based on stateful
+ NAT. Its full address translation algorithm is defined in RFC 6146.
+ .
+ The jool-utils package contains the userspace configuration clients.
