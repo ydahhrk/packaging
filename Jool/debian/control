@@ -1,12 +1,15 @@
 Source: jool
 Maintainer: Jool Team <jool@nic.mx>
 Uploaders: Alberto Leiva Popper <ydahhrk@gmail.com>
-Section: net
+Section: kernel
 Priority: optional
-Build-Depends: debhelper (>= 11),
-	dkms,
-	pkg-config,
-	libnl-genl-3-dev (>= 3.1)
+# 1st line: Debhelper (default)
+# 2nd line: Dependencies from dpkg-depcheck -d ./configure
+# 3rd line: Dependencies from objdump -p <binary>, dpkg -S <library>
+#           (Excluding libc6, since Lintian doesn't like it.)
+Build-Depends: debhelper (>= 11), dkms,
+ mime-support, pkg-config, gawk, file, cpio,
+ libnl-genl-3-dev, libnl-3-dev
 Standards-Version: 4.1.4
 Homepage: https://jool.mx
 Vcs-Browser: https://github.com/NICMx/Jool
@@ -34,8 +37,7 @@ Description: Kernel-based SIIT and NAT64 (IP/ICMP translation)
 
 Package: jool-utils
 Architecture: any
-Depends: ${shlibs:Depends},
-	${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: jool-dkms
 Description: Userspace tools for the Jool kernel modules
  Jool is an IP/ICMP translator; a NAT-like kernel-based utility that converts
