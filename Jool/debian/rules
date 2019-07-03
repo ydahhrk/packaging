@@ -16,9 +16,13 @@ export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 %:
 	dh $@ --with=dkms
 
+# -- Overrides needed by the kernel modules --
+
 override_dh_dkms:
 	# -V enables us to use #MODULE_VERSION# in the jool-dkms.dkms file.
 	dh_dkms -V
+
+# -- Overrides needed by the shared libraries --
 
 override_dh_install:
 	dh_install
@@ -35,3 +39,12 @@ override_dh_makeshlibs:
 	# Apparently dh_makeshlibs is not detecting that all of the project's
 	# libraries are private, so the ldconfig is redundant.
 	dh_makeshlibs --no-scripts
+
+# -- Overrides needed by the systemd unit files --
+
+# We have two systemd services, each requires special initial configuration, and
+# most machines will not need to run both of them simultaneously. So we can't
+# rely on dh_installsystemd defaults.
+override_dh_installsystemd:
+	dh_installsystemd --no-enable --no-start --name=jool_siit
+	dh_installsystemd --no-enable --no-start --name=jool

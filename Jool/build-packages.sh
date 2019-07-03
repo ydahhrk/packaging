@@ -24,6 +24,7 @@
 # Actually tested in Ubuntu 18.04, not Debian.
 
 
+# Parse script arguments
 if [ -z "$1" ]; then
 	echo "Need version number as argument. (eg. 1.0.0)"
 	exit -1
@@ -36,14 +37,13 @@ else
 	JOOL_GIT="$2"
 fi
 
-
 # Build the upstream tarball
-make -C $JOOL_GIT dist
+make -C "$JOOL_GIT" dist
 
 # Create the Debian workspace (build/)
 rm -rf build/*
 mkdir -p build/
-mv $JOOL_GIT/jool-$VERSION.tar.gz build/jool_$VERSION.orig.tar.gz
+mv "$JOOL_GIT"/jool-$VERSION.tar.gz build/jool_$VERSION.orig.tar.gz
 tar -C build/ -xzf build/jool_$VERSION.orig.tar.gz
 cp -r debian build/jool-$VERSION
 
