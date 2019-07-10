@@ -1,0 +1,99 @@
+[Unit]
+Description=Stateless IP/ICMP Translator
+Documentation=https://jool.mx/en/documentation.html
+After=network.target
+
+[Service]
+# Note: Given that Jool is a kernel module and not an actual daemon,
+# these two directives are important for systemd to know what's going on.
+# Do not remove them.
+Type=oneshot
+RemainAfterExit=yes
+
+# Note: We want to add an instance even if one already exists in some other
+# namespace. Hence, the modprobe and the instance-adding need to be separate
+# directives.
+# (Modprobing when the module has already been modprobed is a no-op, regardless
+# of whether no_instance has been issued.)
+ExecStartPre=/sbin/modprobe jool_siit
+ExecStart=/usr/bin/jool_siit -i systemd file handle /etc/jool/jool_siit.conf
+
+ExecStop=/usr/bin/jool_siit instance remove systemd
+# I'm not r-modprobing because some other instance could be running,
+# and we don't want to kill it.
+
+# Security
+
+# The first one is needed by the modprobe, the second one by the Jool kernel module.
+CapabilityBoundingSet=CAP_SYS_MODULE CAP_NET_ADMIN
+# Unneeded since we're not changing users. (I think.)
+#AmbientCapabilities=
+
+NoNewPrivileges=yes
+# I don't understand what this does, or even what its most secure value is supposed to be.
+#SecureBits=
+
+# I don't think we're using SELinux, AppArmor nor SMACK, so these are ignored.
+#SELinuxContext=
+#AppArmorProfile=
+#SmackProcessLabel=
+
+# Hmm. It's very odd; It seems the shared libraries count as file descriptors, and so they
+# get in the way. This one is too fragile for me; I'd rather not enable it.
+#LimitNOFILE=5
+# I'm going to skip the Process Properties and Scheduling sections, okay. I don't think
+# they are very relevant. Feel free to pull-request additions if you feel strongly about
+# it.
+
+# All Jool needs is read permissions on /etc/jool.
+ProtectSystem=strict
+ProtectHome=yes
+# I don't understand the purpose of this. The Debian package already installs /etc/jool,
+# and userspace logging is fairly irrelevant. Others are unneeded.
+#RuntimeDirectory=
+#StateDirectory=
+#CacheDirectory=
+#LogsDirectory=
+#ConfigurationDirectory=
+# Not sure if I should add more. This should be a whitelist, damn it.
+InaccessiblePaths=/tmp /dev
+# Denied already by InaccessiblePaths above.
+#TemporaryFileSystem=
+#PrivateTmp=
+#PrivateDevices=
+# Already denied by RestrictAddressFamilies below.
+#PrivateNetwork=
+# Should probably point to the default namespace, but I don't know how to do it.
+#NetworkNamespacePath=
+# User and group are rather irrelevant.
+#PrivateUsers=
+# I've no idea, honestly.
+ProtectHostname=yes
+# It says "it is hence recommended to turn this on for most services."
+# I like the ones that make it easy.
+ProtectKernelTunables=yes
+# Needed by the modprobes above.
+ProtectKernelModules=no
+# Also recommended by the documentation.
+ProtectControlGroups=yes
+# BTW: The documentation says AF_UNIX is pretty much always needed here, but I don't know.
+# It looks like we're the exception.
+RestrictAddressFamilies=AF_NETLINK
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+# User=, Group= and DynamicUser= are unset.
+#RemoveIPC=
+# These two are already implied or defined by ProtectSystem= et al.
+#PrivateMounts=
+#MountFlags=
+
+# These ones sound too system-dependent for my taste.
+#SystemCallFilter=
+#SystemCallErrorNumber=
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target

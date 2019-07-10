@@ -33,13 +33,13 @@ Description: Kernel-based SIIT and NAT64 (IP/ICMP translation)
  (IPv4)-to-N (IPv6) relationships through a mapping strategy based on stateful
  NAT. Its full address translation algorithm is defined in RFC 6146.
  .
- The jool-utils package contains the userspace configuration clients.
+ The jool-tools package contains the userspace configuration clients.
 
-Package: jool-utils
+Package: jool-tools
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: jool-dkms
-Description: Userspace tools for the Jool kernel modules
+Description: Userspace utilities for the Jool kernel modules
  Jool is an IP/ICMP translator; a NAT-like kernel-based utility that converts
  IPv4 traffic into IPv6 and vice versa, according to a configurable IP address
  translation strategy.
