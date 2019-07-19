@@ -3,22 +3,20 @@ Maintainer: Jool Team <jool@nic.mx>
 Uploaders: Alberto Leiva Popper <ydahhrk@gmail.com>
 Section: kernel
 Priority: optional
-# 1st line: Debhelper (default)
-# 2nd line: Dependencies from dpkg-depcheck -d ./configure
-# 3rd line: Dependencies from objdump -p <binary>, dpkg -S <library>
-#           (Excluding libc6, since Lintian doesn't like it.)
 Build-Depends: debhelper (>= 11), dkms,
  mime-support, pkg-config, gawk, file, cpio,
- libnl-genl-3-dev, libnl-3-dev
-Standards-Version: 4.1.4
+ libnl-genl-3-dev, libnl-3-dev,
+ libxtables-dev
+Standards-Version: 4.4.0
 Homepage: https://jool.mx
 Vcs-Browser: https://github.com/NICMx/Jool
-Vcs-Git: https://github.com/NICMx/Jool.git
+Vcs-Git: https://github.com/NICMx/Jool.git -b debian
 
 Package: jool-dkms
 Architecture: all
-Depends: ${misc:Depends}
-Description: Kernel-based SIIT and NAT64 (IP/ICMP translation)
+Depends: ${misc:Depends}, libxtables12
+Recommends: jool-tools
+Description: kernel-based SIIT and NAT64 (IP/ICMP translation)
  Jool is an IP/ICMP translator; a NAT-like kernel-based utility that converts
  IPv4 traffic into IPv6 and vice versa, according to a configurable IP address
  translation strategy.
@@ -33,13 +31,17 @@ Description: Kernel-based SIIT and NAT64 (IP/ICMP translation)
  (IPv4)-to-N (IPv6) relationships through a mapping strategy based on stateful
  NAT. Its full address translation algorithm is defined in RFC 6146.
  .
- The jool-tools package contains the userspace configuration clients.
+ Both of these functions can be attached to the kernel in Netfilter hooks or as
+ iptables targets.
+ .
+ This package contains the kernel modules. The jool-tools package contains the
+ userspace configuration clients.
 
 Package: jool-tools
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: jool-dkms
-Description: Userspace utilities for the Jool kernel modules
+Description: userspace utilities for the Jool kernel modules
  Jool is an IP/ICMP translator; a NAT-like kernel-based utility that converts
  IPv4 traffic into IPv6 and vice versa, according to a configurable IP address
  translation strategy.

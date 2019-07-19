@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+include /usr/share/dpkg/pkg-info.mk
+
 # See debhelper(7)
 # output every command that modifies files on the build system.
 export DH_VERBOSE = 1
@@ -25,7 +27,10 @@ override_dh_dkms:
 # -- Overrides needed by the shared libraries --
 
 override_dh_install:
-	dh_install
+	dh_install -Njool-dkms
+	dh_install -pjool-dkms \
+		-X/usr/ -X.o -XMakefile.in -XMakefile.am -XREADME \
+		src usr/src/jool-dkms-$(DEB_VERSION_UPSTREAM)
 	# Fixes lintian warning: non-empty-dependency_libs-in-la-file
 	# I have no idea why this needs to be done, nor why I'm supposed to do
 	# it myself.
@@ -46,5 +51,10 @@ override_dh_makeshlibs:
 # most machines will not need to run both of them simultaneously. So we can't
 # rely on dh_installsystemd defaults.
 override_dh_installsystemd:
-	dh_installsystemd --no-enable --no-start --name=jool_siit
-	dh_installsystemd --no-enable --no-start --name=jool
+	dh_installsystemd --no-enable --name=jool_siit
+	dh_installsystemd --no-enable --name=jool
+
+# TODO delete this when they fix the policy
+override_dh_installinit:
+	dh_installinit --no-enable --no-start --name=jool_siit
+	dh_installinit --no-enable --no-start --name=jool

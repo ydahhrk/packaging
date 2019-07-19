@@ -38,15 +38,17 @@ fi
 
 # Build the upstream tarball
 make -C "$JOOL_REPOSITORY" dist
+gpg --yes --detach-sign --armor "$JOOL_REPOSITORY"/jool-$VERSION.tar.gz
 
 # Create the Debian workspace (build/)
-rm -rf build/*
+rm -rf build
 mkdir -p build/
-mv "$JOOL_REPOSITORY"/jool-$VERSION.tar.gz build/jool_$VERSION.orig.tar.gz
+cp "$JOOL_REPOSITORY"/jool-$VERSION.tar.gz build/jool_$VERSION.orig.tar.gz
+cp "$JOOL_REPOSITORY"/jool-$VERSION.tar.gz.asc build/jool_$VERSION.orig.tar.gz.asc
 tar -C build/ -xzf build/jool_$VERSION.orig.tar.gz
 cp -r debian build/jool-$VERSION
 
 # Build the package
 cd build/jool-$VERSION
-# TODO add signing?
 dpkg-buildpackage -us -uc
+debsign

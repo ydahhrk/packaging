@@ -1,0 +1,79 @@
+#!/bin/bash
+#
+# chkconfig: 2345 20 80
+# description: Jool NAT64 service
+
+### BEGIN INIT INFO
+# Provides:          jool
+# Required-Start:    $remote_fs $syslog $network
+# Required-Stop:     $remote_fs $syslog $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Jool NAT64 service
+# Description:       IP/ICMP translation, stateful version.
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+MODULE_NAME=jool
+JOOL_BIN=/usr/bin/$MODULE_NAME
+CONFIG_DIR=/etc/jool
+CONFIG_FILE=jool.conf
+
+die() {
+	echo "$1"
+	exit 1
+}
+
+start() {
+	/sbin/modprobe $MODULE_NAME || die "modprobe failed: $?"
+	$JOOL_BIN file handle "$CONFIG_DIR/$CONFIG_FILE" || die "instance creation failed: $?"
+}
+
+stop() {
+	$JOOL_BIN file remove "$CONFIG_DIR/$CONFIG_FILE" 2> /dev/null
+}
+
+status() {
+	$JOOL_BIN instance display 2> /dev/null || echo "Dead"
+}
+
+check_config() {
+	if [ ! -f "$CONFIG_DIR/$CONFIG_FILE" ]; then
+		echo "The configuration file ($CONFIG_DIR/$CONFIG_FILE) does not exist."
+		echo "Try copying /usr/share/doc/jool-tools/examples/$CONFIG_FILE into $CONFIG_DIR/, modify it and then try again."
+		exit 1
+	fi
+}
+
+case "$1" in
+	start)
+		check_config
+		start
+		echo "Success."
+		;;
+	stop)
+		check_config
+		stop
+		echo "Success."
+		;;
+	restart)
+		check_config
+		stop
+		start
+		echo "Success."
+		;;
+	force-reload)
+		check_config
+		stop
+		start
+		echo "Success."
+		;;
+	status)
+		status
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|force-reload|status}"
+esac
+
+exit 0

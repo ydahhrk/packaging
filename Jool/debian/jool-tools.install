@@ -1,4 +1,3 @@
 usr/bin/*
 usr/lib/*
 usr/share/bash-completion/*
-debian/config/* /etc/jool
