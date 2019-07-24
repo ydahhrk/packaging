@@ -1,7 +1,10 @@
 Source: fort
 Section: net
 Priority: optional
+# TODO update with the proper mailing list once it's created
 Maintainer: Alberto Leiva Popper <ydahhrk@gmail.com>
+# TODO I'm not bound to be the uploader anymore.
+Uploaders: Alberto Leiva Popper <ydahhrk@gmail.com>
 # Got pkg-config to mime-support with `dpkg-depcheck -d ./configure`,
 # libjansson to libc6 with `objdump -p /usr/bin/fort | grep NEEDED`
 # and `dpkg -S`.

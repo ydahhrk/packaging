@@ -15,7 +15,6 @@ jool (4.0.3-1) unstable; urgency=low
     - Rename directory and employ standard systemd startup conditional
   * upstream:
     - Include LICENSE file in the distribution
-  * (Closes: #931960)
 
  -- Alberto Leiva Popper <ydahhrk@gmail.com>  Mon, 15 Jul 2019 16:07:34 -0500
 
