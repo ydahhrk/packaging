@@ -1,25 +1,5 @@
-jool (4.0.3-1) unstable; urgency=low
-
-  * Patch issues reported by Vincent Bernat:
-  * debian/control:
-    - Remove comments
-    - Add -b to Vcs-Git
-    - Remove caps from short descriptions' first words
-    - Add libxtables dependency
-  * debian/jool-dkms.install:
-    - Move logic to debian/rules.
-  * debian/*.service:
-    - Streamline comments
-    - Add pointless SysV files to STFU brain-dead policy warnings
-  * debian/examples:
-    - Rename directory and employ standard systemd startup conditional
-  * upstream:
-    - Include LICENSE file in the distribution
-
- -- Alberto Leiva Popper <ydahhrk@gmail.com>  Mon, 15 Jul 2019 16:07:34 -0500
-
-jool (4.0.2-1) unstable; urgency=low
+jool (4.0.4-1) unstable; urgency=low
 
   * Initial release (Closes: #883393)
 
- -- Alberto Leiva Popper <ydahhrk@gmail.com>  Mon, 17 Jun 2019 10:49:14 -0500
+ -- Alberto Leiva Popper <ydahhrk@gmail.com>  Tue, 30 Jul 2019 16:40:14 -0500

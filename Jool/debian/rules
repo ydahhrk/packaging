@@ -29,7 +29,7 @@ override_dh_dkms:
 override_dh_install:
 	dh_install -Njool-dkms
 	dh_install -pjool-dkms \
-		-X/usr/ -X.o -XMakefile.in -XMakefile.am -XREADME \
+		-X/usr/ -X.o -XMakefile.in -XMakefile.am \
 		src usr/src/jool-dkms-$(DEB_VERSION_UPSTREAM)
 	# Fixes lintian warning: non-empty-dependency_libs-in-la-file
 	# I have no idea why this needs to be done, nor why I'm supposed to do
