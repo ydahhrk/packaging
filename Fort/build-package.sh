@@ -20,6 +20,8 @@
 #    (Apparently, you also have to install dh-make.)
 # 3. Run `./deconf.sh`, `./autogen.sh` and `./configure` in Fort
 # 4. Generate the Debian package: `./build-package.sh 0.0.2`
+#    (Remember: That version number needs to match configure.ac, as well as the
+#    latest changelog entry from the debian directory.)
 #
 # Done. It should have spewn a lot of crap in `build/`, among which you can
 # find your `.deb` file.

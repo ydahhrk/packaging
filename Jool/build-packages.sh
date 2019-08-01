@@ -19,6 +19,8 @@
 # 2. Make sure all the build dependencies are installed. (See `debian/control`.)
 # 3. Run `./deconf.sh`, `./autogen.sh` and `./configure` in Jool.
 # 4. Generate the Debian packages: `./build-packages.sh 4.0.2`
+#    (Remember: That version number needs to match configure.ac, as well as the
+#    latest changelog entry from the debian directory.)
 #
 # Done. It should have spewn a lot of crap in `build/`, among which you can
 # find your `.deb` files. At present, there are two of them: One for the kernel
