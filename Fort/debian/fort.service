@@ -11,6 +11,7 @@ Type=simple
 ExecStart=/usr/bin/fort --configuration-file /etc/fort/config.json
 # This user is created during postinst.
 User=fort-validator
+
 # -- Security Section --
 # It's not clear to me if I should add more entries here. It's strange that it
 # seems to operate as a black list.
