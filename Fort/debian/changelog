@@ -1,3 +1,67 @@
+fort (1.0.0-1) UNRELEASED; urgency=medium
+
+  * Bug fix: Solved github issue #11 "ROAs, MFTs and CAs created with revoked
+    certs are valids".
+  * Bug fix: Solved github issue #12 "Programming error when a ROA without
+    prefixes is validated".
+  * Bug fix: Solved github issue #13 "Wrong "serial number X is not unique"
+    error is displayed when an MFT expired error happens".
+  * Bug fix: Solved github issue #14 "FORT using server mode cannot be
+    interrupted on OpenBSD with SIGINT signal (Control+C)".
+  * Bug fix: The whole set of multiple SLURM files wasn't rejected in overlap
+    cases (RFC 8416 section 4.2).
+  * Bug fix: Validate "server.port" numeric value, since the function
+    "getaddrinfo" is a bit lax with numeric values (it takes into account only
+    the 16 rightmost bits).
+  * Bug fix: Log the configured "server.address" instead of always log "any" as
+    the server address.
+  * Bug fix: Validate "output.roa" file path at initialization.
+  * Bug fix: LibreSSL couldn't decode base64 text with line breaks where at
+    least one line had more than 80 chars.
+  * Bug fix: Remove invalid memory release when a TAL wasn't successfully
+    loaded.
+  * Bug fix: Some files needed by the unit tests were not exporting.
+  * Bug fix: Join each client thread when the connection is terminated.
+  * Bug fix: Avoid memory leak caused by X509_VERIFY_PARAM.
+  * Bug fix: Patch bad initialization of CRL stack.
+  * Bug fix: SLURM filters weren't correctly applied when an asn and prefix
+    were set, only the asn was taken into account to filter VRPs.
+  * Bug fix: SLURM filters of covering prefixes were ignored; e.g. if a prefix
+    X covered ROA prefix Y, the ROA prefix wasn't filtered.
+ 
+  * Update: In case of a SLURM error, log the JSON element with the error
+    instead of logging the element number.
+  * Update: Log a warning when a configuration path ("slurm", "tal") contains 0
+    expected files (extensions ".slurm", ".tal").
+  * Update: Configuration property "maximum-certificate-depth" now has a
+    minimum allowed value of 5 to allow a regular validation using RIR TALs.
+  * Update: The incidence "Signed Object's hash algorithm has NULL object as
+    parameters" now has the ID "incid-hashalg-has-params", and by default it
+    has an action of "ignore".
+  * Update: Update information displayed by "--help" at "--tal" and "--slurm"
+    flags.
+  * Update: Show ROA eContent in debug mode.
+  * Update: Retry file download when there's an error related to a manifest
+    file.
+  * Update: Set compiler optimization level ("-O") from "0" to "2".
+  * Display RTR server info when successfully binded.
+  * Log property name on value error (for unsigned integer values).
+  * Remove compile warning '_BSD_SOURCE and _SVID_SOURCE are deprecated'.
+  * Log custom incidences on initialization.
+
+  * Docs: Indicate current support for 64 bits OSs. 32 bit archs MAY present
+    the 2038 Year Problem.
+  * Docs: Add installation steps for: CentOS 7, Fedora 30, openSUSE Leap,
+    FreeBSD 12, Slackware current release (as of 2019-08-12)
+  * Docs: Add minimum dependencies version required: Openssl >= 1.1.0,
+    GCC >= 4.9.
+  * Docs: Update incidences section, now the registered incidence has a
+    distinct ID and a default action of "ignore".
+  * Docs: Update link to "UINT_MAX" definition at usage section.
+  * Docs: Use path "/tmp/fort/<path>" at multiple examples (man, web docs).
+
+ -- Francisco Moreno <pc.moreno2099@gmail.com>  Mon, 26 Aug 2019 12:01:33 -0500
+
 fort (0.0.2-1) UNRELEASED; urgency=medium
 
   * libcmscodec dependency removed
