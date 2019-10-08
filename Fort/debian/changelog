@@ -1,3 +1,46 @@
+fort (1.1.0-1) UNRELEASED; urgency=medium
+
+  * Update: Create a thread to rsync and validate each TAL, trying to improve
+    execution time.
+  * Update: Support RTR version 1:
+    -RTR version negotiation.
+    -Validate version during PDU exchange.
+    -Implement new PDU error "Unexpected Protocol Version".
+    -Implement new PDU type "Router Key".
+    -Add timing parameters to "End of Data PDU".
+  * Update: Support BGPsec EE certificates (validate and consider for deltas)
+    accordingly to RFC 8209 and 8608.
+  * Update: Update configuration parameters:
+    -Rename 'server.validation-interval' to 'server.interval.validation'.
+    -Add 'server.interval.refresh', 'server.interval.retry', and
+    'server.interval.expire' args to use at RTR version 1 "End of Data PDU".
+    -Add "output.bgpsec' (similar to 'output.roa') to print valid Router Keys,
+    the information is printed as base64url encoded strings.
+  * Update: Support BGPsec filters and assertions at SLURM files.
+  * Update: Use syslog when running in server mode, print at console otherwise.
+  * Update: Update unit tests.
+
+  * Docs: Indicate full RFC 8209 compliance.
+  * Docs: Add RFCs compliance (they were missing): 6810, 8210, 8416, 8608, 8630.
+  * Docs: Update SLURM module with BGPsec assertions and filters support, as
+    well as some examples.
+  * Docs: Update Usage module:
+    -Rename to 'Program Arguments'.
+    -Updated configuration property ('server.validation-interval' is now
+    'server.interval.validation').
+    -New properties ('server.interval.refresh', 'server.interval.retry',
+    'server.interval.expire', and 'output.bgpsec').
+    -Show which 'output.roa' headers are printed.
+  * Docs: Use the same layout at home (landing page) to avoid multiple clicks
+    in order to reach the docs.
+  * Docs: Use a similar configuration file as example at web docs and user man.
+  * Docs: Add Logging module to explain how the logs work.
+  * Docs: Update root README with basic information about the project. 
+  * Docs: Update user man: indicate RTR version 1 support, and add the same
+    updates as in the web docs. 
+
+ -- Francisco Moreno <pc.moreno2099@gmail.com>  Mon, 14 Oct 2019 12:02:10 -0500
+
 fort (1.0.0-1) UNRELEASED; urgency=medium
 
   * Bug fix: Solved github issue #11 "ROAs, MFTs and CAs created with revoked
