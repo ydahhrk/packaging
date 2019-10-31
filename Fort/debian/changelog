@@ -1,3 +1,17 @@
+fort (1.1.1-1) UNRELEASED; urgency=medium
+
+  * Bug fix: Validate 'output.bgpsec' path, check if the path is writable
+    during configuration checks.
+  * Bug fix: Fix bad PDU exchange when the ROAs/Router Keys DB was empty, an
+    End of Data was being sent when a Reset Query PDU was received.
+
+  * Update: Add missing validation from RFC 7935 section 3 (subjectPublicKey
+    modulus and exponent).
+  * Update: Use type 'blksize_t' (<sys/types.h>) instead of '__blksize_t'
+    (<bits/types.h>) to avoid a specific compilation error on Alpine Linux.
+
+ -- Francisco Moreno <pc.moreno2099@gmail.com>  Thu, 31 Oct 2019 10:10:34 -0600
+
 fort (1.1.0-1) UNRELEASED; urgency=medium
 
   * Update: Create a thread to rsync and validate each TAL, trying to improve
