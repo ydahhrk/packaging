@@ -1,3 +1,15 @@
+fort (1.1.2-1) UNRELEASED; urgency=medium
+
+  * Update: Add missing 2-Clause BSD licence to /src/asn1/asn1c/ code.
+  * Update: Add 'log.output' and 'log.level' configuration parameters.
+  * Update: Allow debug log without the need to recompile from source.
+  * Update: Remove '<sys/cdefs.h>' references.
+
+  * Docs: Update Logging and Program Arguments modules to explain new
+    configuration parameters.
+
+ -- Francisco Moreno <pc.moreno2099@gmail.com>  Thu, 07 Nov 2019 12:08:07 -0600
+
 fort (1.1.1-1) UNRELEASED; urgency=medium
 
   * Bug fix: Validate 'output.bgpsec' path, check if the path is writable
