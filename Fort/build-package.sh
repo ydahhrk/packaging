@@ -70,5 +70,6 @@ dpkg-buildpackage -us -uc
 debsign
 
 #cd ../..
-#tar -zcvf build.tar.gz build/
+#tar -zcf build.tar.gz build/
 #sudo mv build.tar.gz /var/www/html/
+#sudo service apache2 start

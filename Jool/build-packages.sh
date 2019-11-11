@@ -52,7 +52,7 @@ fi
 #set -e # Panic on errors (You might have to clean up manually)
 
 # Build the upstream tarball
-# (I'm assuming you haven't generated it already. Otherwise just use that.)
+# (I'm assuming you haven't generated it yet. Otherwise just use that.)
 make -C "$GIT_REPOSITORY" dist
 gpg --yes --detach-sign --armor "$GIT_REPOSITORY"/$PROJECT-$VERSION.tar.gz
 
@@ -72,3 +72,4 @@ debsign
 #cd ../..
 #tar -zcf build.tar.gz build/
 #sudo mv build.tar.gz /var/www/html/
+#sudo service apache2 start
