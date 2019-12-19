@@ -1,3 +1,10 @@
+fort (1.1.3-1) UNRELEASED; urgency=medium
+
+  * Bug fix: Don't update valid prefixes and router keys database if one of the
+    root certificates had a communication error (rsync) or a processing error.
+
+ -- Francisco Moreno <pc.moreno2099@gmail.com>  Wed, 04 Dec 2019 12:47:21 -0600
+
 fort (1.1.2-1) UNRELEASED; urgency=medium
 
   * Update: Add missing 2-Clause BSD licence to /src/asn1/asn1c/ code.
