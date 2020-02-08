@@ -25,6 +25,7 @@ case "$1" in
 	# The home arguments were requested by lintian. I'm completely clueless
 	# about /nonexistent.
         adduser --no-create-home --home /nonexistent --system fort-validator
+        chown fort-validator /var/cache/fort
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

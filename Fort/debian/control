@@ -3,7 +3,7 @@ Section: net
 Priority: optional
 Maintainer: FORT Validator <fort-validator@nic.mx>
 Uploaders: Francisco Moreno <pc.moreno2099@gmail.com>
-Build-Depends: debhelper (>= 11), pkg-config, gawk, file, mime-support, libjansson-dev, libssl-dev
+Build-Depends: debhelper (>= 11), pkg-config, gawk, file, mime-support, libjansson-dev, libssl-dev, libcurl4-openssl-dev, libxml2-dev
 Standards-Version: 4.1.4
 Homepage: https://nicmx.github.io/FORT-validator
 Vcs-Git: https://github.com/NICMx/FORT-validator.git
@@ -11,7 +11,7 @@ Vcs-Browser: https://github.com/NICMx/FORT-validator
 
 Package: fort
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, adduser, rsync
+Depends: ${shlibs:Depends}, ${misc:Depends}, adduser, rsync, libcurl4, libxml2
 Description: RPKI Relying Party and RTR Server
  Fort is an MIT-licensed RPKI Relying Party. It is a service that
  performs the validation of the entire RPKI repository, and which serves

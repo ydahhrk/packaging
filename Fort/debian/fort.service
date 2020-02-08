@@ -8,7 +8,7 @@ Documentation=https://nicmx.github.io/FORT-validator/doc/index.html
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/fort --configuration-file /etc/fort/config.json
+ExecStart=/usr/bin/fort --local-repository /var/cache/fort --configuration-file /etc/fort/config.json
 # This user is created during postinst.
 User=fort-validator
 

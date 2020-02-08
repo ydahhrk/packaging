@@ -1,3 +1,85 @@
+fort (1.2.0-1) UNRELEASED; urgency=medium
+
+  * Bug fix: Solve github issue #9 "Use previous valid SLURM configuration on
+    SLURM error": whenever there's an error processing the SLURM, apply the last
+    valid SLURM version.
+  * Bug fix: If an empty value was sent to arguments that expect paths
+    (eg. 'fort --tal='), this was treated as valid; now this isn't allowed.
+  * Bug fix: rsync execution logs didn't logged to syslog, now they do.
+  * Bug fix: Allow reuse server address/port on restart.
+  * Bug fix: Try to fetch the trust anchor certificate from another URI whenever
+    the previous TAL URI wasn't fetched due to an error.
+  * Bug fix: Standard output wasn't flushed when the console logs where piped,
+    now it is flushed.
+
+  * Update: Support RRDP (solves github issue #20).
+  * Update: Support HTTPS URIs in TALs (solves github issue #19).
+  * Update: Add new incidence 'incid-obj-not-der-encoded' to validate signed
+    objects DER encoding.
+  * Update: Log additional information on start/end of a validation cycle, the
+    information is printed at log level 'info':
+    -When a client starts/ends a connection, or when the connection is killed
+     (print its address and an internal ID).
+    -When a new validation cycle is started and finished (includes number of
+     valid Prefixes and Router Keys, current/new serial number, and real
+     execution time).
+  * Update: Add setup script to ease ARINs TAL download, explicitly accepting
+    their RPA. The script does the following:
+    -Invites to agree ARIN RPA and downloads ARIN's TAL.
+    -Downloads the rest of the TALS from github repository.
+    -Creates a local repository directory, and an example configuration file.
+  * Update: Create 'examples' directory:
+    -Move 'tal' directory to this new directory.
+    -Add a valid configuration file.
+    -Add a valid SLURM file.
+  * Update: Validate configuration args 'slurm' and 'tal' during startup.
+  * Update: Configuration arg 'sync-strategy' will be deprecated, log a warning
+    if it's set.
+  * Update: New configuration arguments added:
+    -'work-offline': Disables outgoing requests to work only with local files
+      from 'local-repository'.
+    -'http.user-agent': User-Agent header set at HTTP requests.
+    -'http.connect-timeout': Timeout in seconds for the connect phase at HTTP
+      requests.
+    -'http.transfer-timeout': Maximum allowed time that an HTTP request can
+      take.
+    -'http.idle-timeout': Maximum idle time during an HTTP request.
+    -'http.ca-path': Directory where CA certs to verify peers are found.
+    -'rrdp.enabled': Enables RRDP files processing.
+    -'rrdp.priority': Priority to use this protocol whenever a CA has another
+      option to access the repository files.
+    -'rrdp.retry.count': Maximum number of retries on requests error.
+    -'rrdp.retry.interval': Interval (in seconds) between each retry.
+    -'rsync.enabled': Enables RSYNC execution.
+    -'rsync.priority': Priority to use this protocol whenever a CA has another
+      option to access the repository files.
+    -'rsync.strategy': Synchronization download strategy (replaces
+      'sync-strategy').
+    -'rsync.retry.count': Maximum number of retries whenever there's an
+      execution error.
+    .'rsync.retry.interval': Interval (in seconds) between each retry.
+    -'asn1-decode-max-stack': indicates the max stack size that can be utilized
+      when decoding ASN1 objects (mainly to avoid a stack overflow).
+  * Update: Add '--timeout' parameter to rsync default arguments.
+  * Update: Set 'root-except-ta' default value to 'rsync.strategy'.
+  * Update: Update unit tests.
+
+  * Docs: Indicate full RFC 8182 and RFC 8630 compliance.
+  * Docs: Add docs for new configuration parameters (at web docs module
+    'Program arguments' and user man).
+  * Docs: Add the usage of the setup script at Installation module, as well as
+    the new dependencies of 'libcurl' and 'libxml2'.
+  * Docs: Add new section 'Routers', contains a basic explanation of data
+    exchange with routers.
+  * Docs: Update Incidences module to include DER encoding validation
+    ('incid-obj-not-der-encoded').
+  * Docs: Update RFC compliance of RFC 6488 to 100%.
+  * Docs: Update READMEs to use relative paths instead of always use master
+    URLs.
+  * Docs: Replace '2019' year refs to '2020'.
+
+ -- Francisco Moreno <pc.moreno2099@gmail.com>  Fri, 07 Feb 2020 15:42:51 -0600
+
 fort (1.1.3-1) UNRELEASED; urgency=medium
 
   * Bug fix: Don't update valid prefixes and router keys database if one of the
