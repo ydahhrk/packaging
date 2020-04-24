@@ -1,7 +1,7 @@
 {
 	"tal": "/etc/fort/tal",
 	"server": {
-		"port": "8323"
+		"port": "323"
 	},
 	"log": {
 		"output": "syslog"

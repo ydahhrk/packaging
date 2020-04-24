@@ -1,3 +1,36 @@
+fort (1.2.1-1) UNRELEASED; urgency=medium
+
+  * Bug fix: Add broken pipe (SIGPIPE) signal handler, this avoids a sudden
+    death when the socket is still alive at the server but closed at the client
+    side.
+  * Bug fix: Don't hold the DB lock when the SLURM is being loaded.
+  * Bug fix: Specific for CentOS7 libcurl: check for time condition met/unmet
+    (whenever the HTTP header "If-Modified-Since" is sent) when requesting RRDP
+    update notification files.
+  * Bug fix: Stop sending PDUs on reset exchange error.
+  * Bug fix: Fix GCC 10 compiling error and warnings (solves github issue #32).
+
+  * Update: Add capability 'CAP_NET_BIND_SERVICE' to this package in order to
+    bind the RTR server to port 323 by default.
+  * Update: Wait for client connections at '--server.port' until the first
+    validation cycle is done.
+  * Update: Update internal PDU logs.
+  * Update: SLURM upgrades:
+    -Improve loading process, use an internal cache when a SLURM file is being
+     loaded.
+    -Don't discard the loaded SLURM if there's an error applying it.
+    -Calculate SLURM file(s) checksum and compare it with its previous one to
+     avoid loading each SLURM at every validation cycle if there aren't
+     updates.
+    -Stop doing unnecessary validations, since they aren't part of the
+     RFC 8416: duplicated elements at the same file, covered prefixes at the
+     same file.
+  * Update: Add new incidences related to manifests processing (solves github
+    issue #28)
+  * Update: Internal improvements resultant from a code review.
+
+ -- Francisco Moreno <pc.moreno2099@gmail.com>  Fri, 24 Apr 2020 13:25:47 -0500
+
 fort (1.2.0-1) UNRELEASED; urgency=medium
 
   * Bug fix: Solve github issue #9 "Use previous valid SLURM configuration on

@@ -4,13 +4,17 @@
 
 [Unit]
 Description=Fort RPKI Validator/Server
-Documentation=https://nicmx.github.io/FORT-validator/doc/index.html
+Documentation=man:fort(8)
+Documentation=https://nicmx.github.io/FORT-validator/
 
 [Service]
 Type=simple
 ExecStart=/usr/bin/fort --local-repository /var/cache/fort --configuration-file /etc/fort/config.json
 # This user is created during postinst.
 User=fort-validator
+
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
 
 # -- Security Section --
 # It's not clear to me if I should add more entries here. It's strange that it
