@@ -49,24 +49,32 @@ else
 fi
 
 #set -x # Be verbose
-#set -e # Panic on errors (You might have to clean up manually)
+set -e # Panic on errors (You will have to clean up manually)
+
+PACKAGING_DIR=$(pwd)
 
 # Build the upstream tarball
 # (I'm assuming you haven't generated it yet. Otherwise just use that.)
-make -C "$GIT_REPOSITORY" dist
-gpg --yes --detach-sign --armor "$GIT_REPOSITORY"/$PROJECT-$VERSION.tar.gz
+cd "$GIT_REPOSITORY"
+git checkout debian
+./deconf.sh
+./autogen.sh
+./configure
+make dist
+gpg --yes --detach-sign --armor $PROJECT-$VERSION.tar.gz
 
 # Create the Debian workspace (build/)
+cd "$PACKAGING_DIR"
 rm -rf build
 mkdir -p build/
 cp "$GIT_REPOSITORY"/$PROJECT-$VERSION.tar.gz build/"$PROJECT"_$VERSION.orig.tar.gz
 cp "$GIT_REPOSITORY"/$PROJECT-$VERSION.tar.gz.asc build/"$PROJECT"_$VERSION.orig.tar.gz.asc
 tar -C build/ -xzf build/"$PROJECT"_$VERSION.orig.tar.gz
-cp -r debian build/$PROJECT-$VERSION
+cp -r "$GIT_REPOSITORY"/debian build/$PROJECT-$VERSION
 
 # Build the package
 cd build/$PROJECT-$VERSION
-dpkg-buildpackage -us -uc
+DPKG_COLORS=never dpkg-buildpackage -us -uc > ../../dpkg-buildpackage.log
 debsign
 
 #cd ../..
