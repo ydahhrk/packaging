@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 clean_var() {
-  echo "Deleting the fort-validator repository..."
+  echo "Deleting the fort repository..."
   rm -rf /var/lib/fort/
 }
 
