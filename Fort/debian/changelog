@@ -1,3 +1,22 @@
+fort (1.4.0-1) UNRELEASED; urgency=medium
+
+  * Bug fix: Some XML parsing and validation errors where printed straight to
+    stderr, now they're printed to the configured "validation-log.output".
+  * Bug fix: The protocol part of an URI only was only valid in lowercase, now
+    the case is ignored.
+
+  * Update: RTR server can bind to multiple IPs.
+  * Update: Deprecate all "rrdp.*" arguments, renaming them to "http.*". The new
+    arguments are "http.enabled", "http.priority", "http.retry.count" and
+    "http.retry.interval". They apply for each outgoing http request.
+  * Update: The 4 TALs now include an HTTPs URI.
+  * Update: HTTPS requests are now preferred by default over RSYNC requests,
+    this applies only where both of the options are present.
+  * Update: New incidences for stale manifests ("incid-mft-stale") and stale
+    CRLs ("incid-crl-stale").
+
+ -- Francisco Moreno <pc.moreno2099@gmail.com>  Tue, 04 Aug 2020 17:03:28 -0500
+
 fort (1.3.0-1) UNRELEASED; urgency=medium
 
   * Bug fix: Minimize function calls and processing once a fork is made to

@@ -1,4 +1,4 @@
-debian/config/config.json          /etc/fort
+debian/config.json                 /etc/fort
 examples/tal/afrinic.tal           /etc/fort/tal
 examples/tal/apnic.tal             /etc/fort/tal
 examples/tal/lacnic.tal            /etc/fort/tal

@@ -7,7 +7,7 @@ Copyright: 2020 NIC Mexico <fort-validator@nic.mx>
 License: MIT
 
 Files: src/asn1/asn1c/*
-Copyright: 2013 Lev Walkin <vlm@lionet.info>
+Copyright: 2003-2013 Lev Walkin <vlm@lionet.info>
 License: BSD-2-clause
 
 Files: debian/*
