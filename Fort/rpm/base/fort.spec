@@ -8,7 +8,7 @@ License:        MIT and BSD
 URL:            https://nicmx.github.io/FORT-validator
 Source0:        https://github.com/NICMx/FORT-validator/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/NICMx/FORT-validator/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
-Source2:        https://github.com/NICMx/FORT-validator/releases/download/v%{version}/%{name}.keyring
+Source2:        https://github.com/NICMx/FORT-validator/releases/download/v%{version}/%{name}-%{version}.keyring
 Source3:        %{name}.service
 Source4:        config.json
 Source5:        default.slurm

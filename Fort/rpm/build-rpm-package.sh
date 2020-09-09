@@ -67,7 +67,7 @@ cp base/$PROJECT.spec ~/rpmbuild/SPECS
 cp base/config.json ~/rpmbuild/SOURCES
 cp base/$PROJECT.service ~/rpmbuild/SOURCES
 cp base/default.slurm ~/rpmbuild/SOURCES
-cp base/$PROJECT.keyring ~/rpmbuild/SOURCES
+cp base/$PROJECT.keyring ~/rpmbuild/SOURCES/$PROJECT-$VERSION.keyring
 cp "$GIT_REPOSITORY"/$PROJECT-$VERSION.tar.gz ~/rpmbuild/SOURCES/$PROJECT-$VERSION.tar.gz
 cp "$GIT_REPOSITORY"/$PROJECT-$VERSION.tar.gz.asc ~/rpmbuild/SOURCES/$PROJECT-$VERSION.tar.gz.asc
 
@@ -83,4 +83,4 @@ rpmbuild --rebuild SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
 #rpm --addsign RPMS/$ARCH/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).$ARCH.rpm
 #rpm --checksig RPMS/$ARCH/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).$ARCH.rpm
 
-echo 'run rpmlint -i RPMS/'$ARCH'/'$PROJECT'-'$VERSION'-1'$(rpm --eval %{?dist})'.'$ARCH'.rpm'
+echo 'run rpmlint -i ~/rpmbuild/RPMS/'$ARCH'/'$PROJECT'-'$VERSION'-1'$(rpm --eval %{?dist})'.'$ARCH'.rpm'
