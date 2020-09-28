@@ -1,3 +1,9 @@
+fort (1.4.1-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Francisco Moreno <pc.moreno2099@gmail.com>  Mon, 28 Sep 2020 12:11:43 -0500
+
 fort (1.4.0-1) UNRELEASED; urgency=medium
 
   * Bug fix: Some XML parsing and validation errors where printed straight to
