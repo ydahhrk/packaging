@@ -1,4 +1,10 @@
-fort (1.4.1-1) UNRELEASED; urgency=medium
+fort (1.4.2-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Francisco Moreno <pc.moreno2099@gmail.com>  Tue, 29 Sep 2020 17:18:19 -0500
+ 
+ fort (1.4.1-1) UNRELEASED; urgency=medium
 
   * New upstream release
 
