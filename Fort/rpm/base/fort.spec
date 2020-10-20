@@ -121,5 +121,5 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
-* Tue Sep 29 2020 Francisco Moreno <pc.moreno2099@gmail.com> - 1.4.2-1
+* Tue Oct 20 2020 Francisco Moreno <pc.moreno2099@gmail.com> - 1.4.2-1
 - First official FORT validator RPM
