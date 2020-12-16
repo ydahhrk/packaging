@@ -1,5 +1,5 @@
 Name:           fort
-Version:        1.4.2
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        RPKI validator and RTR server
 
@@ -121,5 +121,7 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Tue Dec 15 2020 Francisco Moreno <pc.moreno2099@gmail.com> - 1.5.0-1
+- New upstream release
 * Tue Oct 20 2020 Francisco Moreno <pc.moreno2099@gmail.com> - 1.4.2-1
 - First official FORT validator RPM
