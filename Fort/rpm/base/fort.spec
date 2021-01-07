@@ -122,6 +122,7 @@ fi
 
 %changelog
 * Tue Dec 15 2020 Francisco Moreno <pc.moreno2099@gmail.com> - 1.5.0-1
-- New upstream release
+- New upstream release.
+- Add 'RestartForceExitStatus' service setting.
 * Tue Oct 20 2020 Francisco Moreno <pc.moreno2099@gmail.com> - 1.4.2-1
 - First official FORT validator RPM
