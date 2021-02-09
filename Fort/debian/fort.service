@@ -10,7 +10,7 @@ After=network.target
 
 [Service]
 ExecStart=/usr/bin/fort --configuration-file /etc/fort/config.json
-Type=exec
+Type=simple
 # This user is created during postinst.
 User=fort
 ConfigurationDirectory=fort
