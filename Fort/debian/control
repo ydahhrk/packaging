@@ -2,9 +2,9 @@ Source: fort
 Section: net
 Priority: optional
 Maintainer: FORT Validator <fort-validator@nic.mx>
-Uploaders: Francisco Moreno <pc.moreno2099@gmail.com>
+Uploaders: Alberto Leiva Popper <ydahhrk@gmail.com>
 Build-Depends: debhelper-compat (= 12),
- debhelper (>= 12.8),
+ debhelper (>= 12.1),
  pkg-config,
  libcurl4-openssl-dev,
  libjansson-dev,
