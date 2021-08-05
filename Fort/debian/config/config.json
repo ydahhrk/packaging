@@ -1,7 +1,0 @@
-{
-	"tal": "/etc/fort/tal",
-
-	"server": {
-		"port": "8323"
-	}
-}
