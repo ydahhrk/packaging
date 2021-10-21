@@ -1,14 +1,16 @@
 Name:           fort
-Version:        1.5.0
+Version:        1.5.2
 Release:        1%{?dist}
 Summary:        RPKI validator and RTR server
 
 # The source is MIT, only a section is BDS-2-clause (src/asn1/asn1c/*)
 License:        MIT and BSD
 URL:            https://nicmx.github.io/FORT-validator
-Source0:        https://github.com/NICMx/FORT-validator/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Source1:        https://github.com/NICMx/FORT-validator/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
-Source2:        https://github.com/NICMx/FORT-validator/releases/download/v%{version}/%{name}-%{version}.keyring
+Source0:        https://github.com/NICMx/FORT-validator/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source1:        https://github.com/NICMx/FORT-validator/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
+# TODO This doesn't need to include the name nor the version.
+# Also, extension should probably be "gpg".
+Source2:        https://github.com/NICMx/FORT-validator/releases/download/%{version}/%{name}-%{version}.keyring
 Source3:        %{name}.service
 Source4:        config.json
 Source5:        default.slurm
@@ -121,8 +123,11 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Wed Oct 20 2021 Alberto Leiva Popper <ydahhrk@gmail.com> - 1.5.2-1
+- New upstream release.
 * Tue Dec 15 2020 Francisco Moreno <pc.moreno2099@gmail.com> - 1.5.0-1
 - New upstream release.
 - Add 'RestartForceExitStatus' service setting.
 * Tue Oct 20 2020 Francisco Moreno <pc.moreno2099@gmail.com> - 1.4.2-1
 - First official FORT validator RPM
+

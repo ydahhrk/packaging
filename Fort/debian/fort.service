@@ -36,7 +36,11 @@ AmbientCapabilities=CAP_NET_BIND_SERVICE
 CapabilityBoundingSet=CAP_NET_BIND_SERVICE
 SystemCallArchitectures=native
 SystemCallErrorNumber=EPERM
-SystemCallFilter=@system-service
+# Note: @system-service is not available in relatively old versions of systemd,
+# like Ubuntu 18.04's. I tried exploding it, but it just creates more problems.
+# Probably uncomment SystemCallFilter once 18.04 is out of the picture.
+# See https://github.com/NICMx/FORT-validator/issues/62
+#SystemCallFilter=@system-service
 RestartForceExitStatus=12
 
 [Install]

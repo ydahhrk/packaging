@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Note: There's no debian branch anymore. It breaks the version numbers.
+# Just keep the debian directory here.
+
 # This is the script I used to generate the first Debian packages.
 #
 # If you're not me, read this first (at least chapters 2, 4 and 6):
@@ -9,7 +12,7 @@
 #   It needs to match the one defined in configure.ac.
 #   (I could compute it automatically, but it sounds like a pain.)
 # The second argument is the location of Fort's git repository.
-#   Optional. Defaults to "~/git/fort".
+#   Optional. Defaults to "~/git2/fort".
 #
 # These are the steps:
 #
@@ -17,8 +20,7 @@
 #    Note that, if you're not me, you need to replace the file
 #    debian/upstream/signing-key.asc with your own public key.
 # 2. Make sure all the build dependencies are installed. (See `debian/control`.)
-#    (Apparently, you also have to install dh-make.)
-# 3. Run `./deconf.sh`, `./autogen.sh` and `./configure` in Fort
+# 3. Run `./deconf.sh`, `./autogen.sh` and `./configure` in Fort.
 # 4. Generate the Debian package: `./build-package.sh 0.0.2`
 #    (Remember: That version number needs to match configure.ac, as well as the
 #    latest changelog entry from the debian directory.)
@@ -31,7 +33,9 @@
 #
 # Also, read the comments below before starting anything. (Just in case.)
 #
-# Actually tested in Ubuntu 18.04, not Debian.
+# Do this in Debian; not Ubuntu. Ubuntu often has newer versions of several
+# things, which leads to compiled binaries that cannot run on Debian.
+# Debian binaries, on the other hand, should always run on Ubuntu.
 
 PROJECT=fort
 
@@ -43,20 +47,28 @@ fi
 VERSION="$1"
 
 if [ -z "$2" ]; then
-	GIT_REPOSITORY=~/git/$PROJECT
+	GIT_REPOSITORY=~/git2/$PROJECT
 else
 	GIT_REPOSITORY="$2"
 fi
 
 #set -x # Be verbose
-#set -e # Panic on errors (You might have to clean up manually)
+set -e # Panic on errors (You will have to clean up manually)
+
+PACKAGING_DIR=$(pwd)
 
 # Build the upstream tarball
-# (I'm assuming you haven't generated it already. Otherwise just use that.)
-make -C "$GIT_REPOSITORY" dist
-gpg --yes --detach-sign --armor "$GIT_REPOSITORY"/$PROJECT-$VERSION.tar.gz
+# (I'm assuming you haven't generated it yet. Otherwise just use that.)
+#cd "$GIT_REPOSITORY"
+#git checkout master
+#./deconf.sh
+#./autogen.sh
+#./configure
+#make dist
+#gpg --yes --detach-sign --armor $PROJECT-$VERSION.tar.gz
 
 # Create the Debian workspace (build/)
+cd "$PACKAGING_DIR"
 rm -rf build
 mkdir -p build/
 cp "$GIT_REPOSITORY"/$PROJECT-$VERSION.tar.gz build/"$PROJECT"_$VERSION.orig.tar.gz
@@ -66,10 +78,11 @@ cp -r debian build/$PROJECT-$VERSION
 
 # Build the package
 cd build/$PROJECT-$VERSION
-dpkg-buildpackage -us -uc
+DPKG_COLORS=never dpkg-buildpackage -us -uc > ../../dpkg-buildpackage.log
 debsign
 
 #cd ../..
 #tar -zcf build.tar.gz build/
 #sudo mv build.tar.gz /var/www/html/
 #sudo service apache2 start
+

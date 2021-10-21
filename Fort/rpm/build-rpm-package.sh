@@ -25,15 +25,21 @@
 # 2. Install the required dependencies to build RPMS ('mock' is recommended):
 #      sudo yum install gcc rpm-build rpm-devel rpmlint make python bash coreutils \
 #                       diffutils patch rpmdevtools rpm-sign
+#      sudo yum install epel-release
 #      sudo yum install mock
 #      sudo yum install epel-rpm-macros
+#      sudo usermod -a -G mock al
 # 3. Run `./deconf.sh`, `./autogen.sh` and `./configure` at Fort source dir.
-# 4. Generate the RPM:
+# 4. In the base/fort.spec file, update the version number and add a changelog entry.
+# 5. Generate the RPM:
 #      ./build-rpm-package.sh 1.4.1 [fort-source-dir]
 #
 # This will create the SRPM and the RPM, and mock its creation at EPEL-8 and EPEL-7.
 # If everything went ok, you can find the distributable RPM at ~/rpmbuild/RPMS/x86_64;
-# don't forget to run 'rpmlint -i' on the resultant RPM.
+# don't forget to run 'rpmlint -i' on the resulting RPM.
+#
+# outside: sudo systemctl start sshd
+# inside: scp stuff.rpm ahhrk@10.0.2.2:/home/ahhrk/Downloads
 
 PROJECT=fort
 ARCH=x86_64
@@ -51,13 +57,8 @@ else
 	GIT_REPOSITORY="$2"
 fi
 
-#set -x # Be verbose
-#set -e # Panic on errors (You might have to clean up manually)
-
-# Build the upstream tarball
-# (I'm assuming you haven't generated it already. Otherwise just use that.)
-make -C "$GIT_REPOSITORY" dist
-gpg --yes --detach-sign --armor "$GIT_REPOSITORY"/$PROJECT-$VERSION.tar.gz
+set -x # Print commands
+set -e # Panic on errors (You might have to clean up manually)
 
 # Create the RPM workspace (~/rpmbuild/)
 rm -rf ~/rpmbuild

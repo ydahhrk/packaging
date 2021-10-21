@@ -1,10 +1,3 @@
-1. `debian/changelog`: I suppose you can add entries to this file for now, but
-   once the package is uploaded to Debian, in should only include one entry.
-   (The "Initial release (Closes: #XXXXX)" one. See Jool's.)
-2. `debian/compat`: There's already a new compat version (12), although
-   upgrading is sometimes not trivial.
-3. `debian/control`: Standards-Version is too old. Adjust according to the
-   Policy Manual you're reading. (https://www.debian.org/doc/debian-policy/)
 4. `debian/control`: Vcs-Git should include -b:
 
    Vcs-* fields are for packaging. There is not issue to
@@ -16,5 +9,3 @@
 
    See the policy manual.
 
-And make sure you check the the package using the latest Lintian version.
-Ubuntu's Lintian is too old; use Debian's.

@@ -4,16 +4,16 @@ Description: Mimic patches from Marco D'itri debian packaging
 Origin: https://salsa.debian.org/md/fort-validator/-/tree/master/debian/patches
 --- a/man/fort.8
 +++ b/man/fort.8
-@@ -274,6 +274,8 @@ utilized by fort as TAL.
- The TAL ("Trust Anchor Locator") is a text file that lists a few URLs which can
- be used to access the "Trust Anchor" (the root of a particular RPKI tree) and
+@@ -225,6 +225,8 @@ The TAL ("Trust Anchor Locator") is a te
  its public key. (See RFC 8630.)
-+.P
-+By default, the path is \fI/etc/tals\fR.
  .RE
  .P
++By default, the path is \fI/etc/tals\fR.
++.P
  
-@@ -302,7 +304,7 @@ Fort's entire validation process operates on the resulting copy of the files
+ .BR \-r ", " \-\-local-repository=\fIDIRECTORY\fR
+ .RS 4
+@@ -251,7 +253,7 @@ Fort's entire validation process operate
  Because rsync uses delta encoding, you’re advised to keep this cache around. It
  significantly speeds up subsequent validation cycles.
  .P
@@ -22,7 +22,7 @@ Origin: https://salsa.debian.org/md/fort-validator/-/tree/master/debian/patches
  .RE
  .P
  
-@@ -1198,30 +1200,30 @@ By default, it has a value of \fI43200\fR (12 hours).
+@@ -1196,30 +1198,30 @@ By default, it has a value of \fI43200\f
  .P
  
  .SH EXAMPLES
@@ -58,7 +58,7 @@ Origin: https://salsa.debian.org/md/fort-validator/-/tree/master/debian/patches
  .fi
  .RS 4
  Run FORT as standalone and using a SLURM file.
-@@ -1235,7 +1237,7 @@ Run FORT using the JSON configuration file \fIconf.json\fR.
+@@ -1233,7 +1235,7 @@ Run FORT using the JSON configuration fi
  .P
  
  .nf
@@ -67,7 +67,7 @@ Origin: https://salsa.debian.org/md/fort-validator/-/tree/master/debian/patches
       \-\-server.address=::1 \-\-server.port=9323 \\
       \-\-server.interval.validation=1800 \\
       \-\-output.roa=/tmp/roas.csv\fR
-@@ -1253,14 +1255,14 @@ to a specific value:
+@@ -1251,14 +1253,14 @@ to a specific value:
  .nf
  
  {
@@ -84,12 +84,12 @@ Origin: https://salsa.debian.org/md/fort-validator/-/tree/master/debian/patches
 +  "slurm": "/etc/fort/slurm/",
    "server": {
      "address": [
-       "127.0.0.1"
+       "192.0.2.1",
 --- a/src/config.c
 +++ b/src/config.c
-@@ -970,13 +970,18 @@ set_default_values(void)
- 	rpki_config.server.interval.retry = 600;
+@@ -983,13 +983,17 @@ set_default_values(void)
  	rpki_config.server.interval.expire = 7200;
+ 	rpki_config.server.deltas_lifetime = 2;
  
 -	rpki_config.tal = NULL;
 +	rpki_config.tal = strdup("/etc/tals");
@@ -97,7 +97,6 @@ Origin: https://salsa.debian.org/md/fort-validator/-/tree/master/debian/patches
 +		error = pr_enomem();
 +		goto revert_port;
 +	}
-+
  	rpki_config.slurm = NULL;
  
 -	rpki_config.local_repository = strdup("/tmp/fort/repository");
@@ -109,7 +108,7 @@ Origin: https://salsa.debian.org/md/fort-validator/-/tree/master/debian/patches
  	}
  
  	rpki_config.sync_strategy = RSYNC_ROOT_EXCEPT_TA;
-@@ -1087,6 +1092,8 @@ revert_rsync_program:
+@@ -1096,6 +1100,8 @@ revert_rsync_program:
  	free(rpki_config.rsync.program);
  revert_repository:
  	free(rpki_config.local_repository);

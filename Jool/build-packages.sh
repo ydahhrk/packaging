@@ -9,7 +9,7 @@
 #   It needs to match the one defined in configure.ac.
 #   (I could compute it automatically, but it sounds like a pain.)
 # The second argument is the location of Jool's git repository.
-#   Optional. Defaults to "~/git/jool".
+#   Optional. Defaults to "~/git/jool2".
 #
 # These are the steps:
 #
@@ -43,7 +43,7 @@ fi
 VERSION="$1"
 
 if [ -z "$2" ]; then
-	GIT_REPOSITORY=~/git/$PROJECT
+	GIT_REPOSITORY=~/git2/$PROJECT
 else
 	GIT_REPOSITORY="$2"
 fi

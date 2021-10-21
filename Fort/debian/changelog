@@ -1,4 +1,10 @@
-fort (1.5.1-1) UNRELEASED; urgency=medium
+fort (1.5.2-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Alberto Leiva Popper <ydahhrk@gmail.com>  Tue, 19 Oct 2021 15:39:43 -0500
+
+fort (1.5.1-1) unstable; urgency=medium
 
   * New upstream release
 
