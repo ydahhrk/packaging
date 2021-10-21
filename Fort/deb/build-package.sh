@@ -1,78 +1,27 @@
 #!/bin/bash
 
-# Note: There's no debian branch anymore. It breaks the version numbers.
-# Just keep the debian directory here.
-
-# This is the script I used to generate the first Debian packages.
-#
-# If you're not me, read this first (at least chapters 2, 4 and 6):
-# https://www.debian.org/doc/manuals/maint-guide/
-#
-# The first argument is the version number (eg. 1.0.0). Mandatory.
-#   It needs to match the one defined in configure.ac.
-#   (I could compute it automatically, but it sounds like a pain.)
-# The second argument is the location of Fort's git repository.
-#   Optional. Defaults to "~/git2/fort".
-#
-# These are the steps:
-#
-# 1. Update the debian directory (adjacent to this file).
-#    Note that, if you're not me, you need to replace the file
-#    debian/upstream/signing-key.asc with your own public key.
-# 2. Make sure all the build dependencies are installed. (See `debian/control`.)
-# 3. Run `./deconf.sh`, `./autogen.sh` and `./configure` in Fort.
-# 4. Generate the Debian package: `./build-package.sh 0.0.2`
-#    (Remember: That version number needs to match configure.ac, as well as the
-#    latest changelog entry from the debian directory.)
-#
-# Done. It should have spewn a lot of crap in `build/`, among which you can
-# find your `.deb` file.
-# `$2/fort-$VERSION.tar.gz` is also important. It is the "upstream tarball,"
-# and should definitely be included in the Github release. (Note that it ships
-# with a signature, too.)
-#
-# Also, read the comments below before starting anything. (Just in case.)
-#
-# Do this in Debian; not Ubuntu. Ubuntu often has newer versions of several
-# things, which leads to compiled binaries that cannot run on Debian.
-# Debian binaries, on the other hand, should always run on Ubuntu.
+# Generates Fort's Debian package.
+# 
+# It needs one argument: The version number of the Fort binary you're releasing.
+# Example: "1.0.0"
 
 PROJECT=fort
 
 # Parse script arguments
 if [ -z "$1" ]; then
-	echo "Need version number as argument. (eg. 1.0.0)"
-	exit -1
+	echo "I need Fort's version number as argument. (eg. 1.0.0)"
+	exit 1
 fi
 VERSION="$1"
-
-if [ -z "$2" ]; then
-	GIT_REPOSITORY=~/git2/$PROJECT
-else
-	GIT_REPOSITORY="$2"
-fi
 
 #set -x # Be verbose
 set -e # Panic on errors (You will have to clean up manually)
 
-PACKAGING_DIR=$(pwd)
-
-# Build the upstream tarball
-# (I'm assuming you haven't generated it yet. Otherwise just use that.)
-#cd "$GIT_REPOSITORY"
-#git checkout master
-#./deconf.sh
-#./autogen.sh
-#./configure
-#make dist
-#gpg --yes --detach-sign --armor $PROJECT-$VERSION.tar.gz
-
 # Create the Debian workspace (build/)
-cd "$PACKAGING_DIR"
 rm -rf build
 mkdir -p build/
-cp "$GIT_REPOSITORY"/$PROJECT-$VERSION.tar.gz build/"$PROJECT"_$VERSION.orig.tar.gz
-cp "$GIT_REPOSITORY"/$PROJECT-$VERSION.tar.gz.asc build/"$PROJECT"_$VERSION.orig.tar.gz.asc
+cp ../bin/$PROJECT-$VERSION.tar.gz build/"$PROJECT"_$VERSION.orig.tar.gz
+cp ../bin/$PROJECT-$VERSION.tar.gz.asc build/"$PROJECT"_$VERSION.orig.tar.gz.asc
 tar -C build/ -xzf build/"$PROJECT"_$VERSION.orig.tar.gz
 cp -r debian build/$PROJECT-$VERSION
 
@@ -81,8 +30,6 @@ cd build/$PROJECT-$VERSION
 DPKG_COLORS=never dpkg-buildpackage -us -uc > ../../dpkg-buildpackage.log
 debsign
 
-#cd ../..
-#tar -zcf build.tar.gz build/
-#sudo mv build.tar.gz /var/www/html/
-#sudo service apache2 start
+# Find problems
+lintian -i -I --show-overrides ../*.changes | less
 

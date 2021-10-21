@@ -1,5 +1,6 @@
 .project
-Fort/build
+Fort/bin
+Fort/deb/build
 Jool/build
 *.tar.gz
-*.rpm
+

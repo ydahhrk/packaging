@@ -8,8 +8,17 @@ License:        MIT and BSD
 URL:            https://nicmx.github.io/FORT-validator
 Source0:        https://github.com/NICMx/FORT-validator/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/NICMx/FORT-validator/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
-# TODO This doesn't need to include the name nor the version.
-# Also, extension should probably be "gpg".
+# TODO pcarana left the following recipe:
+#
+#	gpg --allow-secret-key-import --import <your_private_key.asc>
+#	sudo rpm --import <public_key.asc>
+#	echo "%_gpg_name <public_KEY_ID>" >> ~/.rpmmacros
+#	# And now create the .keyring
+#	gpg2 --export --export-options export-minimal <public_KEY_ID> > fort.keyring
+#
+# I didn't see it in time, so I used my simple public key instead. It worked
+# pretty damn well. But do figure out which is the "more" correct one.
+# If you're going to leave the public key, maybe change the extension to "gpg".
 Source2:        https://github.com/NICMx/FORT-validator/releases/download/%{version}/%{name}-%{version}.keyring
 Source3:        %{name}.service
 Source4:        config.json
