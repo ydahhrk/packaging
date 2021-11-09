@@ -54,6 +54,11 @@ See `../build-upstream-tarball.sh`.
 
 ## Generate the Debian package
 
+	sudo apt update
+	sudo apt upgrade
+
+Then run the following script:
+
 `~/package-fort.sh`:
 
 	#!/bin/sh
@@ -92,6 +97,7 @@ Done. See `../bin/deb-$FVERSION.tar.gz`, in the host.
 
 Before you turn the VM off, install `~/git2/packaging/Fort/deb/build/fort_$FVERSION-1_amd64.deb` and manhandle it a bit:
 
+	fort --version
 	sudo service fort start
 	sudo service fort status
 	tail -30 /var/log/syslog

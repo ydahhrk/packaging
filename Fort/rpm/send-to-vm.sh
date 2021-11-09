@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Start the "CentOS 8" VM first.
+
 cd ../..
 tar czf packaging.tar.gz Fort
 echo "The password is the very long one."
