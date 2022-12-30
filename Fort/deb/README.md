@@ -20,21 +20,44 @@ The package *should not* be generated on a derivative such as Ubuntu, because th
 
 1. Update the environment. (`sudo apt update && sudo apt upgrade`)
 2. Take a snapshot. (And probably delete old ones.)
-3. If you plann on using Shared Folders,
-	1. Install Virtualbox Guest additions.
+3. If you plan on using Shared Folders,
+	1. Install Virtualbox Guest additions. (/home/ahhrk/Documents/Releases/jool.md, search "Instala VboxGuestAdditions")
 	2. Add `~/git` to `VM Settings > Shared Folders`, permanent. (I'm assuming you cloned `packaging` and `FORT-validator` into `~/git`.)
 	3. Create `~/mount-git.sh`:
 
 		#!/bin/sh
 		
+		# If this doesn't work, try changing the identifier of
+		# the shared folder to /home/ahhrk/git in the Shared
+		# Folder settings,then replace `git git` with
+		# `/home/ahhrk/git git`.
 		sudo mount -t vboxsf -o uid=1000,gid=1000 git git
 
 	4. `chmod +x ~/mount-git.sh`
-4. Install your GPG keys.
-5. Install the Debian packaging tools. (Can't find the recipe; go to the Maintainers' Guide and figure it out.)
+4. Install your GPG keys:
+
+Host:
+
+```
+gpg --list-keys
+gpg --output pub.gpg --armor --export <long hex id>
+gpg --output sec.gpg --armor --export-secret-key <long hex id>
+scp -P 2211 pub.gpg sec.gpg  al@127.0.0.1:~/
+```
+
+VM:
+
+```
+gpg --import pub.gpg
+gpg --allow-secret-key-import --import sec.gpg
+gpg --list-keys
+```
+
+5. [Install the Debian packaging tools](/home/ahhrk/git/packaging/Fort/deb/README.md).
 6. Install Fort's dependencies. See `debian/control/Build-Depends`.
 7. Create the script from step [Generate the Debian package](#generate-the-debian-package).
 8. If you plan to also use this VM to package Jool, also install its dependencies and `~/package-jool.sh` script.
+9. Add your user to sudoers: `/usr/sbin/usermod -aG sudo al`
 9. Take another snapshot.
 10. Dance.
 

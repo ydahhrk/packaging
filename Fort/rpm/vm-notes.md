@@ -36,7 +36,7 @@ Wait like a billion years, then look at the last lines of output; that's Lintian
 
 Now try it out:
 
-	cd rpmbuild/RPMS/x86_64
+	cd ~/rpmbuild/RPMS/x86_64
 	sudo yum install ./fort-$FVERSION-1.el8.x86_64.rpm
 	fort --version
 	sudo service fort start
