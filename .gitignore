@@ -1,6 +1,3 @@
-.project
-Fort/bin
-Fort/deb/build
-Jool/build
-*.tar.gz
-
+bin/
+deb/
+dpkg-buildpackage.log
