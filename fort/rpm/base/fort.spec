@@ -1,5 +1,5 @@
 Name:           fort
-Version:        1.5.3
+Version:        1.5.4
 Release:        1%{?dist}
 Summary:        RPKI validator and RTR server
 
@@ -8,17 +8,6 @@ License:        MIT and BSD
 URL:            https://nicmx.github.io/FORT-validator
 Source0:        https://github.com/NICMx/FORT-validator/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/NICMx/FORT-validator/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
-# TODO pcarana left the following recipe:
-#
-#	gpg --allow-secret-key-import --import <your_private_key.asc>
-#	sudo rpm --import <public_key.asc>
-#	echo "%_gpg_name <public_KEY_ID>" >> ~/.rpmmacros
-#	# And now create the .keyring
-#	gpg2 --export --export-options export-minimal <public_KEY_ID> > fort.keyring
-#
-# I didn't see it in time, so I used my simple public key instead. It worked
-# pretty damn well. But do figure out which is the "more" correct one.
-# If you're going to leave the public key, maybe change the extension to "gpg".
 Source2:        https://github.com/NICMx/FORT-validator/releases/download/%{version}/%{name}-%{version}.keyring
 Source3:        %{name}.service
 Source4:        config.json
@@ -132,6 +121,8 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Wed Jul 05 2023 Alberto Leiva Popper <ydahhrk@gmail.com> - 1.5.4-1
+- New upstream release.
 * Mon Nov 08 2021 Alberto Leiva Popper <ydahhrk@gmail.com> - 1.5.3-1
 - New upstream release.
 * Wed Oct 20 2021 Alberto Leiva Popper <ydahhrk@gmail.com> - 1.5.2-1

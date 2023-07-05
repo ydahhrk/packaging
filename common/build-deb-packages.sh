@@ -58,6 +58,7 @@ cp bin/$PROJECT-$VERSION.tar.gz     deb/"$PROJECT"_$VERSION.orig.tar.gz
 cp bin/$PROJECT-$VERSION.tar.gz.asc deb/"$PROJECT"_$VERSION.orig.tar.gz.asc
 
 cd deb
+chmod u+w "$PROJECT"_$VERSION.orig.tar.gz "$PROJECT"_$VERSION.orig.tar.gz.asc
 tar -xzf "$PROJECT"_$VERSION.orig.tar.gz
 cd $PROJECT-$VERSION
 cp -r "$GIT_REPOSITORY"/debian .

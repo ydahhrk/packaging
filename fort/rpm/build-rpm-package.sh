@@ -39,7 +39,7 @@ cp ../bin/$PROJECT-$VERSION.tar.gz.asc ~/rpmbuild/SOURCES/$PROJECT-$VERSION.tar.
 cd ~/rpmbuild
 
 rpmbuild -bs SPECS/$PROJECT.spec
-mock -r epel-8-$ARCH SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
+#mock -r epel-8-$ARCH SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
 mock -r epel-7-$ARCH SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
 rpmbuild --rebuild SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
 
