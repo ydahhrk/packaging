@@ -21,7 +21,7 @@ Also make sure there's a permanent SSH server.
 
 --------------------------------------------------------------------------------
 
-Start the CentOS VM. In the meantime, generate the upstream tarball (if you haven't already):
+Start the "Rocky Linux 8" VM. In the meantime, generate the upstream tarball (if you haven't already):
 
 ```
 ../build-upstream-tarball.sh 1.5.4
@@ -83,6 +83,7 @@ sudo service fort stop
 Send it to the host machine:
 
 ```
+cd
 tar czf rpm-1.5.4.tar.gz rpmbuild/
 exit
 cd ~/git/packaging/fort/bin/
@@ -96,5 +97,5 @@ Remember to save:
 cd ~/git/packaging
 git add .
 git commit -S
-git push origin master
+git push origin main
 ```
