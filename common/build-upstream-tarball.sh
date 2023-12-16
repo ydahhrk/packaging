@@ -48,8 +48,8 @@ git checkout debian
 make dist
 gpg --yes --detach-sign --armor "$TARGZ"
 
-mkdir -p "$WORKSPACE/bin"
-mv "$TARGZ" "$SIGNATURE" "$WORKSPACE/bin"
+mkdir -p "$WORKSPACE/bin/$VERSION"
+mv "$TARGZ" "$SIGNATURE" "$WORKSPACE/bin/$VERSION"
 # These are sacred; don't tweak them.
-chmod ugo-w "$WORKSPACE/bin/$TARGZ" "$WORKSPACE/bin/$SIGNATURE"
+chmod ugo-w "$WORKSPACE/bin/$VERSION/$TARGZ" "$WORKSPACE/bin/$VERSION/$SIGNATURE"
 

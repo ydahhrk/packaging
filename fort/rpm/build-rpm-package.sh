@@ -32,18 +32,18 @@ cp base/config.json ~/rpmbuild/SOURCES
 cp base/$PROJECT.service ~/rpmbuild/SOURCES
 cp base/default.slurm ~/rpmbuild/SOURCES
 cp base/$PROJECT.keyring ~/rpmbuild/SOURCES/$PROJECT-$VERSION.keyring
-cp ../bin/$PROJECT-$VERSION.tar.gz ~/rpmbuild/SOURCES/$PROJECT-$VERSION.tar.gz
-cp ../bin/$PROJECT-$VERSION.tar.gz.asc ~/rpmbuild/SOURCES/$PROJECT-$VERSION.tar.gz.asc
+cp ../bin/$VERSION/$PROJECT-$VERSION.tar.gz ~/rpmbuild/SOURCES/$PROJECT-$VERSION.tar.gz
+cp ../bin/$VERSION/$PROJECT-$VERSION.tar.gz.asc ~/rpmbuild/SOURCES/$PROJECT-$VERSION.tar.gz.asc
 
 # Build the package
 cd ~/rpmbuild
 
 rpmbuild -bs SPECS/$PROJECT.spec
-#mock -r epel-8-$ARCH SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
+mock -r epel-8-$ARCH SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
 mock -r epel-7-$ARCH SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
 rpmbuild --rebuild SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
 
-# TODO Sign with an official key
+# TODO Sign with a proper key
 #rpm --addsign RPMS/$ARCH/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).$ARCH.rpm
 #rpm --checksig RPMS/$ARCH/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).$ARCH.rpm
 

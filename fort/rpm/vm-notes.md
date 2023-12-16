@@ -11,13 +11,22 @@ dnf install autoconf automake libxml2-devel libcurl-devel openssl-devel jansson-
 usermod -a -G mock al
 ```
 
-In Rocky 9, `jansson` is installed by default apparently, but I couldn't figure out how to download `jansson-devel` from the repositories. I got it manually [here](https://pkgs.org/search/?q=jansson).
+Rocky 9 packages (I might be misremembering some):
 
 ```
-dnf install ./jansson-devel-2.14-1.el9.x86_64.rpm
+# Common
+dnf install tar autoconf automake
+
+# Jool
+dnf install gcc make elfutils-libelf-devel
+dnf install kernel-devel libnl3-devel
+
+# Fort
+dnf --enablerepo=devel install jansson-devel libcurl-devel libxml2-devel
+dnf install check-devel
 ```
 
-Also make sure there's a permanent SSH server.
+Also, make sure there's a permanent SSH server.
 
 --------------------------------------------------------------------------------
 
@@ -27,7 +36,7 @@ Start the "Rocky Linux 8" VM. In the meantime, generate the upstream tarball (if
 ../build-upstream-tarball.sh 1.5.4
 ```
 
-Update `base/`. `fort.spec` needs a new version number and a new changelog entry.
+Update `base/`. At the very least, `fort.spec` needs a new version number and a new changelog entry.
 
 If you're not me, or the keyring needs updating:
 

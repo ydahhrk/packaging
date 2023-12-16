@@ -54,8 +54,8 @@ set -e # Panic on errors
 # Create the Debian workspace (deb/)
 rm -rf deb
 mkdir -p deb
-cp bin/$PROJECT-$VERSION.tar.gz     deb/"$PROJECT"_$VERSION.orig.tar.gz
-cp bin/$PROJECT-$VERSION.tar.gz.asc deb/"$PROJECT"_$VERSION.orig.tar.gz.asc
+cp bin/$VERSION/$PROJECT-$VERSION.tar.gz     deb/"$PROJECT"_$VERSION.orig.tar.gz
+cp bin/$VERSION/$PROJECT-$VERSION.tar.gz.asc deb/"$PROJECT"_$VERSION.orig.tar.gz.asc
 
 cd deb
 chmod u+w "$PROJECT"_$VERSION.orig.tar.gz "$PROJECT"_$VERSION.orig.tar.gz.asc
@@ -69,8 +69,8 @@ debsign
 
 # Copy results to bin/
 cd ..
-tar czf "../bin/$PROJECT-$VERSION-deb.tar.gz" *
-chmod ugo-w "../bin/$PROJECT-$VERSION-deb.tar.gz"
+tar czf "../bin/$VERSION/$PROJECT-$VERSION-deb.tar.gz" *
+chmod ugo-w "../bin/$VERSION/$PROJECT-$VERSION-deb.tar.gz"
 
 # Find problems
 echo "Please watch out for errors and warnings on the output of these commands:"
