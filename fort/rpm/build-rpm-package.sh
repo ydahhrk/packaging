@@ -39,8 +39,9 @@ cp ../bin/$VERSION/$PROJECT-$VERSION.tar.gz.asc ~/rpmbuild/SOURCES/$PROJECT-$VER
 cd ~/rpmbuild
 
 rpmbuild -bs SPECS/$PROJECT.spec
-mock -r epel-8-$ARCH SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
-mock -r epel-7-$ARCH SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
+# ls /etc/mock
+# centos-stream-8-$ARCH centos-stream-9-$ARCH fedora-41-$ARCH rhel-8-$ARCH rhel-9-$ARCH rocky+epel-8-$ARCH rocky+epel-9-$ARCH
+# mock -r "$i" SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
 rpmbuild --rebuild SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
 
 # TODO Sign with a proper key

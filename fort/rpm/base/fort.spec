@@ -1,5 +1,5 @@
 Name:           fort
-Version:        1.6.1
+Version:        1.6.2
 Release:        1%{?dist}
 Summary:        RPKI validator and RTR server
 
@@ -121,6 +121,8 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Fri May 24 2024 Alberto Leiva Popper <ydahhrk@gmail.com> - 1.6.2-1
+- New upstream release.
 * Fri Dec 15 2023 Alberto Leiva Popper <ydahhrk@gmail.com> - 1.6.1-1
 - New upstream release.
 * Thu Nov 30 2023 Alberto Leiva Popper <ydahhrk@gmail.com> - 1.6.0-1
