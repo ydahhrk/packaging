@@ -41,7 +41,7 @@ cd ~/rpmbuild
 rpmbuild -bs SPECS/$PROJECT.spec
 # ls /etc/mock
 # centos-stream-8-$ARCH centos-stream-9-$ARCH fedora-41-$ARCH rhel-8-$ARCH rhel-9-$ARCH rocky+epel-8-$ARCH rocky+epel-9-$ARCH
-# mock -r "$i" SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
+#mock -r "rhel-8-$ARCH" SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
 rpmbuild --rebuild SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
 
 # TODO Sign with a proper key
@@ -50,3 +50,5 @@ rpmbuild --rebuild SRPMS/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).src.rpm
 
 rpmlint -i ~/rpmbuild/RPMS/$ARCH/$PROJECT-$VERSION-1$(rpm --eval %{?dist}).$ARCH.rpm
 
+cd
+tar czf git/packaging/fort/bin/$VERSION/rpm-$VERSION.tar.gz rpmbuild
