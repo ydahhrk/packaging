@@ -1,5 +1,5 @@
 Name:           fort
-Version:        1.6.6
+Version:        1.6.7
 Release:        1%{?dist}
 Summary:        RPKI validator and RTR server
 
@@ -16,6 +16,9 @@ Source5:        default.slurm
 %if 0%{?fedora}
 BuildRequires:  systemd-rpm-macros
 %endif
+%if 0%{?rocky}
+BuildRequires:  systemd-rpm-macros
+%endif
 %if 0%{?rhel}
 BuildRequires:  epel-rpm-macros
 %endif
@@ -30,13 +33,10 @@ BuildRequires:  automake
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(jansson)
 BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(libmicrohttpd)
 BuildRequires:  libxml2-devel
-%if 0%{?rhel} == 7
-BuildRequires:  pkgconfig(openssl11)
-BuildRequires:  devtoolset-8-gcc
-%else
 BuildRequires:  openssl-devel >= 1.1.0
-%endif
+BuildRequires:  rpmlint
 
 Requires(pre):  shadow-utils
 Requires:       rsync
@@ -121,6 +121,8 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Fri Sep 12 2025 Alberto Leiva Popper <ydahhrk@gmail.com> - 1.6.7-1
+- New upstream release.
 * Wed Feb 05 2025 Alberto Leiva Popper <ydahhrk@gmail.com> - 1.6.6-1
 - New upstream release.
 * Thu Dec 19 2024 Alberto Leiva Popper <ydahhrk@gmail.com> - 1.6.5-1

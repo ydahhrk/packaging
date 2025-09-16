@@ -1,9 +1,19 @@
 #!/bin/sh
 
-# Generates Fort's Debian packages. See ../common/build-dev-packages.sh
-#
-# First argument: Release version.
-# Second argument: Location of Fort's git repository; optional.
+if [ -z "$FVERSION" ]; then
+	echo "FVERSION is unset; please add it to the environment."
+	return 1
+fi
 
-../common/build-deb-packages.sh "fort" "$1" "$2"
+# TODO Hack.
+# Probably fix this by moving the debian directory to deb/debian,
+# and ridding Fort of its debian branch.
+# It's clutter at this point, honestly.
+rm -rf deb/debian
+cp -r $HOME/git/fort/debian deb/debian
 
+DOCKER_BUILDKIT=1 docker build \
+	--file deb/Dockerfile \
+	--output bin/$FVERSION \
+	--build-arg FVERSION="$FVERSION" \
+	.
