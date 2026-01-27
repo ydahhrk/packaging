@@ -1,3 +1,4 @@
 bin/
 fort/deb/debian/
+jool/deb/debian/
 dpkg-buildpackage.log

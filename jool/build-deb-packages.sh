@@ -1,12 +1,29 @@
 #!/bin/sh
 
-# Generates Jool's Debian packages. See ../common/build-dev-packages.sh
-#
-# First argument: Release version.
-# Second argument: Location of Jool's git repository.
-#
-# Will dump the resulting files into `bin/`.
-# The most important landmarks are the kernel modules package (jool-dkms),
-# and the userspace tools package (jool-tools).
+if [ -z "$JVERSION" ]; then
+	echo "JVERSION is unset; please add it to the environment."
+	return 1
+fi
 
-../common/build-deb-packages.sh "jool" "$1" "$2"
+rm -rf deb/debian
+cp -r $HOME/git/jool/debian deb/debian
+
+docker build \
+	--file deb/Dockerfile \
+	--output bin/$JVERSION \
+	--build-arg JVERSION="$JVERSION" \
+	.
+
+TARGZ="jool-$JVERSION-deb.tar.gz"
+
+cd bin/$JVERSION
+mkdir -p deb
+tar -xzf $TARGZ -C deb
+cd deb
+
+lintian -i -I --show-overrides --profile debian *.changes
+debsign *.changes || exit 1
+
+rm ../$TARGZ
+tar czf ../$TARGZ *
+chmod -w ../$TARGZ
