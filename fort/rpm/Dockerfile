@@ -1,4 +1,4 @@
-FROM rockylinux:8 AS fortbuild
+FROM rockylinux:9 AS fortbuild
 ARG FVERSION
 
 # rpmdevtools is the basic RPM building package.
